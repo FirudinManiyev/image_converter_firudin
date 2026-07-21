@@ -1,75 +1,76 @@
-# React + TypeScript + Vite
+# Image Converter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bu layihə istifadəçilərə şəkilləri fərqli formatlara çevirməyə, ölçüsünü dəyişməyə və nəticəni dərhal müqayisə etməyə imkan verən Vite + React + TypeScript tətbiqidir.
 
-Currently, two official plugins are available:
+## Əsas xüsusiyyətlər
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- PNG, JPG/JPEG, WEBP və SVG şəkillərini yükləmək
+- Şəkli digər formatlara çevirmək
+- İstəyə bağlı olaraq eni və hündürlüyü dəyişmək
+- JPG/WebP üçün keyfiyyət dərəcəsini tənzimləmək
+- Orijinal və çevrilmiş şəkli müqayisə etmək
+- Çevrilmiş faylı endirmək
 
-## React Compiler
+## Texnologiyalar
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- react-dropzone
+- browser-image-compression
+- sonner
+- lucide-react
 
-## Expanding the ESLint configuration
+## Proyektin strukturu
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- src/components – UI komponentlər
+  - components/converter – çevirmə ilə əlaqəli kontrol elementləri
+  - components/preview – önizləmə və müqayisə komponentləri
+  - components/upload – fayl yükləmə sahəsi
+  - components/layout – layout komponentləri
+- src/hooks – xüsusi React hook-lar
+- src/services/image – şəkil emalı və endirmə işləri
+- src/types – TypeScript tipləri
+- src/utils – köməkçi funksiyalar
+- src/pages – səhifələr
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Yerli inkişaf
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Dependencies quraşdırın:
+   ```bash
+   npm install
+   ```
+2. Development serveri başladın:
+   ```bash
+   npm run dev
+   ```
+3. Build etmə:
+   ```bash
+   npm run build
+   ```
+4. Lint yoxlaması:
+   ```bash
+   npm run lint
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## İstifadə qaydası
 
-```
+1. Proqramı açın.
+2. Şəkil yükləyin.
+3. İstədiyiniz formatı seçin.
+4. Lazım gələrsə eni/hündürlüyü dəyişdirin.
+5. Keyfiyyəti tənzimləyin.
+6. “Çevirmək” düyməsini basın.
+7. Nəticəni endirin.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Qeydlər
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Tətbiq yalnız brauzer daxilində işləyir; server tələb etmir.
+- Maksimum yüklənə bilən fayl ölçüsü 20 MB-dir.
+- SVG kimi vector formatlar üçün çevrilmə nəticəsi canvas əsaslı işlədiyi üçün bəzi hallarda məhdudiyyət ola bilər.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+## Müəllif
+Firudin Maniyev  
+Full-Stack Developer  
+Email: firudinmaniyev@gmail.com

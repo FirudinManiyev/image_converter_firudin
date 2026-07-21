@@ -11,8 +11,8 @@ import { downloadImage } from "../services/image/downloader";
 import { formatBytes } from "../utils/formatBytes";
 import { formatTime } from "../utils/formatTime";
 import { toast } from "sonner";
-import CompareSlider from "../components/preview/CompareSlider";
 import ResizeInputs from "../components/converter/ResizeInputs";
+import QualitySlider from "../components/converter/QualitySlider";
 
 import type {
     ImageFormat,
@@ -37,6 +37,7 @@ export default function Home() {
                 format,
                 width: width ? Number(width) : undefined,
                 height: height ? Number(height) : undefined,
+                quality: quality / 100,
             });
 
             setConvertedImage(converted);
@@ -60,12 +61,14 @@ export default function Home() {
 
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("");
+    const [quality, setQuality] = useState(92);
 
     return (
-        <main className="min-h-screen bg-[#090909] text-white">
+        <main className="relative min-h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_rgba(250,204,21,0.16),_transparent_35%),radial-gradient(ellipse_at_bottom_right,_rgba(59,130,246,0.16),_transparent_40%),linear-gradient(135deg,_#05070b_0%,_#090a13_45%,_#070913_100%)] text-white">
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.03),transparent_40%,rgba(255,255,255,0.025))]" />
             <Navbar />
 
-            <section className="mx-auto max-w-7xl px-6 py-16">
+            <section className="relative mx-auto max-w-7xl px-6 py-16">
                 <div className="text-center">
                     <h1 className="text-5xl font-bold">
                         Image{" "}
@@ -87,20 +90,6 @@ export default function Home() {
                     <div className="mt-16">
 
                         <div className="grid gap-8 lg:grid-cols-2">
-
-                            {convertedImage && (
-                                <div className="mt-12">
-                                    <h2 className="mb-6 text-2xl font-bold">
-                                        Müqayisə
-                                    </h2>
-
-                                    <CompareSlider
-                                        leftImage={image.preview}
-                                        rightImage={convertedImage.url}
-                                    />
-                                </div>
-                            )}
-
                             <div>
                                 <h2 className="mb-4 text-xl font-semibold">
                                     Orijinal Şəkil
@@ -183,6 +172,13 @@ export default function Home() {
                             onWidthChange={setWidth}
                             onHeightChange={setHeight}
                         />
+
+                        {(format === "jpg" || format === "jpeg" || format === "webp") && (
+                            <QualitySlider
+                                value={quality}
+                                onChange={setQuality}
+                            />
+                        )}
 
                         <FormatSelector
                             value={format}
