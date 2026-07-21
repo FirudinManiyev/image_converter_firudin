@@ -7,7 +7,7 @@ export default function Navbar() {
                 </h2>
 
                 <span className="text-sm text-zinc-500">
-                    React • TypeScript • Tailwind
+                    Firudin Maniyev
                 </span>
             </div>
         </header>

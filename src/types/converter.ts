@@ -8,6 +8,9 @@ export interface ConvertOptions {
     file: File;
     format: ImageFormat;
     quality?: number;
+
+    width?: number;
+    height?: number;
 }
 
 export interface ConvertedImage {

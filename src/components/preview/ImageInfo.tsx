@@ -1,41 +1,48 @@
+import { ImageIcon, HardDrive, Maximize2 } from "lucide-react";
+import { formatBytes } from "../../utils/formatBytes";
+
 interface Props {
     file: File;
 }
 
 export default function ImageInfo({ file }: Props) {
-    const size = (file.size / 1024 / 1024).toFixed(2);
-
     return (
-        <div className="mt-6 rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
 
-            <div className="flex justify-between">
-                <span className="text-zinc-400">
-                    Fayl adı
-                </span>
+            <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                <ImageIcon className="mb-3 text-yellow-400" />
 
-                <span>
+                <p className="text-sm text-zinc-500">
+                    Fayl
+                </p>
+
+                <h3 className="mt-2 truncate font-semibold">
                     {file.name}
-                </span>
+                </h3>
             </div>
 
-            <div className="mt-4 flex justify-between">
-                <span className="text-zinc-400">
+            <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                <HardDrive className="mb-3 text-yellow-400" />
+
+                <p className="text-sm text-zinc-500">
                     Ölçü
-                </span>
+                </p>
 
-                <span>
-                    {size} MB
-                </span>
+                <h3 className="mt-2 font-semibold">
+                    {formatBytes(file.size)}
+                </h3>
             </div>
 
-            <div className="mt-4 flex justify-between">
-                <span className="text-zinc-400">
-                    Format
-                </span>
+            <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                <Maximize2 className="mb-3 text-yellow-400" />
 
-                <span>
-                    {file.type.split("/")[1].toUpperCase()}
-                </span>
+                <p className="text-sm text-zinc-500">
+                    Format
+                </p>
+
+                <h3 className="mt-2 font-semibold uppercase">
+                    {file.type.split("/")[1]}
+                </h3>
             </div>
 
         </div>

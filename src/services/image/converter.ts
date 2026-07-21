@@ -10,6 +10,8 @@ export async function convertImage({
     file,
     format,
     quality = 0.92,
+    width,
+    height,
 }: ConvertOptions): Promise<ConvertedImage> {
     const startTime = performance.now();
 
@@ -25,15 +27,21 @@ export async function convertImage({
             throw new Error("Canvas dəstəklənmir.");
         }
 
-        canvas.width = image.width;
-        canvas.height = image.height;
+        canvas.width = width ?? image.width;
+        canvas.height = height ?? image.height;
 
         if (format === "jpg" || format === "jpeg") {
             ctx.fillStyle = "#ffffff";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
 
-        ctx.drawImage(image, 0, 0);
+        ctx.drawImage(
+            image,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
         const blob = await canvasToBlob(
             canvas,

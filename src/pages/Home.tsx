@@ -1,16 +1,18 @@
 import { useState } from "react";
-
 import Navbar from "../components/layout/Navbar";
 import UploadArea from "../components/upload/UploadArea";
 import ImagePreview from "../components/preview/ImagePreview";
 import ImageInfo from "../components/preview/ImageInfo";
 import FormatSelector from "../components/converter/FormatSelector";
 import ConvertButton from "../components/converter/ConvertButton";
-
 import { useImage } from "../hooks/useImage";
-
 import { convertImage } from "../services/image/converter";
 import { downloadImage } from "../services/image/downloader";
+import { formatBytes } from "../utils/formatBytes";
+import { formatTime } from "../utils/formatTime";
+import { toast } from "sonner";
+import CompareSlider from "../components/preview/CompareSlider";
+import ResizeInputs from "../components/converter/ResizeInputs";
 
 import type {
     ImageFormat,
@@ -33,11 +35,17 @@ export default function Home() {
             const converted = await convertImage({
                 file: image.file,
                 format,
+                width: width ? Number(width) : undefined,
+                height: height ? Number(height) : undefined,
             });
 
             setConvertedImage(converted);
+
+            toast.success("Şəkil uğurla çevrildi.");
         } catch (error) {
             console.error(error);
+
+            toast.error("Şəkil çevrilərkən xəta baş verdi.");
         }
     };
 
@@ -49,6 +57,9 @@ export default function Home() {
             convertedImage.fileName
         );
     };
+
+    const [width, setWidth] = useState("");
+    const [height, setHeight] = useState("");
 
     return (
         <main className="min-h-screen bg-[#090909] text-white">
@@ -76,6 +87,19 @@ export default function Home() {
                     <div className="mt-16">
 
                         <div className="grid gap-8 lg:grid-cols-2">
+
+                            {convertedImage && (
+                                <div className="mt-12">
+                                    <h2 className="mb-6 text-2xl font-bold">
+                                        Müqayisə
+                                    </h2>
+
+                                    <CompareSlider
+                                        leftImage={image.preview}
+                                        rightImage={convertedImage.url}
+                                    />
+                                </div>
+                            )}
 
                             <div>
                                 <h2 className="mb-4 text-xl font-semibold">
@@ -105,7 +129,60 @@ export default function Home() {
 
                         <div className="mt-8">
                             <ImageInfo file={image.file} />
+
+                            {convertedImage && (
+                                <div className="mt-8 grid gap-4 md:grid-cols-4">
+
+                                    <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                                        <p className="text-sm text-zinc-500">
+                                            Yeni Ölçü
+                                        </p>
+
+                                        <h3 className="mt-2 font-bold text-yellow-400">
+                                            {formatBytes(convertedImage.convertedSize)}
+                                        </h3>
+                                    </div>
+
+                                    <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                                        <p className="text-sm text-zinc-500">
+                                            Çevrilmə Müddəti
+                                        </p>
+
+                                        <h3 className="mt-2 font-bold text-yellow-400">
+                                            {formatTime(convertedImage.conversionTime)}
+                                        </h3>
+                                    </div>
+
+                                    <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                                        <p className="text-sm text-zinc-500">
+                                            Genişlik
+                                        </p>
+
+                                        <h3 className="mt-2 font-bold">
+                                            {convertedImage.width}px
+                                        </h3>
+                                    </div>
+
+                                    <div className="rounded-2xl border border-zinc-800 bg-[#151515] p-5">
+                                        <p className="text-sm text-zinc-500">
+                                            Hündürlük
+                                        </p>
+
+                                        <h3 className="mt-2 font-bold">
+                                            {convertedImage.height}px
+                                        </h3>
+                                    </div>
+
+                                </div>
+                            )}
                         </div>
+
+                        <ResizeInputs
+                            width={width}
+                            height={height}
+                            onWidthChange={setWidth}
+                            onHeightChange={setHeight}
+                        />
 
                         <FormatSelector
                             value={format}
