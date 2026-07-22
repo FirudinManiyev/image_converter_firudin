@@ -1,15 +1,16 @@
 # Image Converter
 
-Bu layihə istifadəçilərə şəkilləri fərqli formatlara çevirməyə, ölçüsünü dəyişməyə və nəticəni dərhal müqayisə etməyə imkan verən Vite + React + TypeScript tətbiqidir.
+Brauzerdə işləyən bu Vite + React + TypeScript tətbiqi şəkilləri fərqli formatlara çevirməyə, ölçülərini dəyişməyə və nəticəni dərhal endirməyə imkan verir. Serverə fayl göndərilmir.
 
 ## Əsas xüsusiyyətlər
 
-- PNG, JPG/JPEG, WEBP və SVG şəkillərini yükləmək
-- Şəkli digər formatlara çevirmək
-- İstəyə bağlı olaraq eni və hündürlüyü dəyişmək
-- JPG/WebP üçün keyfiyyət dərəcəsini tənzimləmək
-- Orijinal və çevrilmiş şəkli müqayisə etmək
-- Çevrilmiş faylı endirmək
+- PNG, JPG/JPEG, WEBP və SVG fayllarının yüklənməsi
+- PNG, JPG/JPEG və WEBP formatlarına çevirmə
+- En və hündürlüyün fərdi və ya hazır ölçülərlə dəyişdirilməsi
+- JPG və WEBP üçün keyfiyyət tənzimləməsi
+- Orijinal və çevrilmiş şəkillərin önizlənməsi
+- Çevrilmiş faylın birbaşa endirilməsi
+- 20 MB ölçü limiti və uyğun olmayan fayllar üçün aydın xəta bildirişləri
 
 ## Texnologiyalar
 
@@ -17,60 +18,48 @@ Bu layihə istifadəçilərə şəkilləri fərqli formatlara çevirməyə, öl�
 - TypeScript
 - Vite
 - Tailwind CSS
+- Framer Motion
 - react-dropzone
-- browser-image-compression
 - sonner
 - lucide-react
 
-## Proyektin strukturu
+## Layihə strukturu
 
-- src/components – UI komponentlər
-  - components/converter – çevirmə ilə əlaqəli kontrol elementləri
-  - components/preview – önizləmə və müqayisə komponentləri
-  - components/upload – fayl yükləmə sahəsi
-  - components/layout – layout komponentləri
-- src/hooks – xüsusi React hook-lar
-- src/services/image – şəkil emalı və endirmə işləri
-- src/types – TypeScript tipləri
-- src/utils – köməkçi funksiyalar
-- src/pages – səhifələr
+- `src/components` — interfeys komponentləri
+  - `converter` — çevirmə idarəetmələri
+  - `layout` — naviqasiya və açılış ekranı
+  - `preview` — önizləmə və fayl məlumatları
+  - `upload` — fayl yükləmə sahəsi
+- `src/hooks` — xüsusi React hook-ları
+- `src/services/image` — şəkil emalı və endirmə məntiqi
+- `src/types` — TypeScript tipləri
+- `src/utils` — yardımçı funksiyalar
+- `src/pages` — səhifələr
 
-## Yerli inkişaf
+## Yerli işə salma
 
-1. Dependencies quraşdırın:
-   ```bash
-   npm install
-   ```
-2. Development serveri başladın:
-   ```bash
-   npm run dev
-   ```
-3. Build etmə:
-   ```bash
-   npm run build
-   ```
-4. Lint yoxlaması:
-   ```bash
-   npm run lint
-   ```
+```bash
+npm install
+npm run dev
+```
 
-## İstifadə qaydası
+İstehsal build-i və lint yoxlaması:
 
-1. Proqramı açın.
-2. Şəkil yükləyin.
-3. İstədiyiniz formatı seçin.
-4. Lazım gələrsə eni/hündürlüyü dəyişdirin.
-5. Keyfiyyəti tənzimləyin.
-6. “Çevirmək” düyməsini basın.
-7. Nəticəni endirin.
+```bash
+npm run build
+npm run lint
+```
+
+## İstifadə
+
+1. Açılış ekranından “Başlayaq” düyməsinə basın.
+2. Şəkli sürükləyib buraxın və ya fayl seçin.
+3. Ölçü, keyfiyyət və çıxış formatını təyin edin.
+4. “Şəkli çevir” düyməsinə basın.
+5. Hazır nəticəni endirin.
 
 ## Qeydlər
 
-- Tətbiq yalnız brauzer daxilində işləyir; server tələb etmir.
-- Maksimum yüklənə bilən fayl ölçüsü 20 MB-dir.
-- SVG kimi vector formatlar üçün çevrilmə nəticəsi canvas əsaslı işlədiyi üçün bəzi hallarda məhdudiyyət ola bilər.
-
-## Müəllif
-Firudin Maniyev  
-Full-Stack Developer  
-Email: firudinmaniyev@gmail.com
+- Bütün emal brauzerdə aparılır.
+- SVG faylları canvas vasitəsilə rasterləşdiyi üçün bəzi mürəkkəb SVG-lərdə nəticə məhdud ola bilər.
+- Tətbiq yaradılmış `Object URL` ünvanlarını təmizləyir ki, uzun istifadə sessiyalarında yaddaş lazımsız tutulmasın.

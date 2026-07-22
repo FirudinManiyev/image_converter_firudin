@@ -1,1 +1,60 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background: #030817;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+}
+
+::selection {
+  background: rgba(250, 204, 21, 0.85);
+  color: #111827;
+}
+
+.page-enter {
+  animation: page-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ambient-orb {
+  animation: drift 12s ease-in-out infinite alternate;
+}
+
+.welcome-orb {
+  position: absolute;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.28;
+  animation: drift 10s ease-in-out infinite alternate;
+}
+
+.welcome-orb-left { background: #eab308; top: -12rem; left: -14rem; }
+.welcome-orb-right { background: #2563eb; right: -15rem; bottom: -15rem; animation-delay: -4s; }
+
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes drift {
+  from { transform: translate3d(-10px, -8px, 0) scale(1); }
+  to { transform: translate3d(24px, 18px, 0) scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
