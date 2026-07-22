@@ -8,13 +8,13 @@ export default function QualitySlider({
     onChange,
 }: Props) {
     return (
-        <div className="mt-8 rounded-2xl border border-zinc-800 bg-[#151515] p-6">
+        <div className="mt-8 rounded-2xl border border-zinc-800 bg-[#151515] p-6 transition-all duration-300 hover:border-zinc-700 hover:shadow-lg hover:shadow-yellow-400/5">
             <div className="mb-4 flex items-center justify-between">
                 <h3 className="text-lg font-semibold">
                     Keyfiyyət
                 </h3>
 
-                <span className="font-bold text-yellow-400">
+                <span className="font-bold text-yellow-400 transition-all duration-300 hover:scale-110">
                     {value}%
                 </span>
             </div>
@@ -28,7 +28,7 @@ export default function QualitySlider({
                 onChange={(e) =>
                     onChange(Number(e.target.value))
                 }
-                className="w-full accent-yellow-400"
+                className="w-full accent-yellow-400 transition-all duration-300 hover:accent-yellow-300"
             />
         </div>
     );

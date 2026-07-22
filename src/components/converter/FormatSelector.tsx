@@ -27,9 +27,9 @@ export default function FormatSelector({
                     <button
                         key={format}
                         onClick={() => onChange(format)}
-                        className={`rounded-xl border p-4 transition ${value === format
-                                ? "border-yellow-400 bg-yellow-400 text-black"
-                                : "border-zinc-700 bg-[#181818] hover:border-yellow-400"
+                        className={`rounded-xl border p-4 transition-all duration-300 ${value === format
+                                ? "border-yellow-400 bg-yellow-400 text-black scale-105 shadow-lg shadow-yellow-400/30"
+                                : "border-zinc-700 bg-[#181818] hover:border-yellow-400 hover:scale-102 hover:bg-[#1a1a1a] hover:shadow-md hover:shadow-yellow-400/10"
                             }`}
                     >
                         {format.toUpperCase()}
