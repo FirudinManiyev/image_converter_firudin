@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { toast } from "sonner";
 import Navbar from "../components/layout/Navbar";
 import WelcomeScreen from "../components/layout/WelcomeScreen";
@@ -26,6 +26,19 @@ export default function Home() {
     const [width, setWidth] = useState("");
     const [height, setHeight] = useState("");
     const [quality, setQuality] = useState(92);
+
+    const originalFormat = useMemo(() => {
+        if (!image) return "png";
+        const mimeType = image.file.type;
+        const formatMap: Record<string, string> = {
+            "image/png": "png",
+            "image/jpeg": "jpg",
+            "image/jpg": "jpg",
+            "image/webp": "webp",
+            "image/svg+xml": "svg",
+        };
+        return formatMap[mimeType] || "png";
+    }, [image]);
 
     const handleConvert = async () => {
         if (!image) return;
@@ -148,7 +161,7 @@ export default function Home() {
 
                         <ResizeInputs width={width} height={height} originalWidth={originalWidth} originalHeight={originalHeight} onWidthChange={setWidth} onHeightChange={setHeight} />
                         {(format === "jpg" || format === "jpeg" || format === "webp") && <QualitySlider value={quality} onChange={setQuality} />}
-                        <FormatSelector value={format} onChange={setFormat} />
+                        <FormatSelector value={format} onChange={setFormat} originalFormat={originalFormat} />
                         <ConvertButton disabled={!image} onClick={handleConvert} />
 
                         {convertedImage && (

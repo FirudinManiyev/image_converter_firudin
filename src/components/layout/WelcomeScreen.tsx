@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, ImageIcon, Sparkles, WandSparkles } from "lucide-react";
+import { useEffect } from "react";
+import { ImageIcon, Sparkles, WandSparkles } from "lucide-react";
 
 interface Props {
     isOpen: boolean;
@@ -13,6 +14,15 @@ const features = [
 ];
 
 export default function WelcomeScreen({ isOpen, onClose }: Props) {
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                onClose();
+            }, 3500);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, onClose]);
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -95,18 +105,19 @@ export default function WelcomeScreen({ isOpen, onClose }: Props) {
                             ))}
                         </motion.div>
 
-                        <motion.button
-                            type="button"
-                            onClick={onClose}
-                            className="relative mt-9 inline-flex cursor-pointer items-center gap-2 rounded-xl bg-yellow-400 px-6 py-3.5 font-bold text-slate-950 shadow-lg shadow-yellow-500/20 transition-colors hover:bg-yellow-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow-300"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
+                        <motion.div
+                            className="relative mt-9 flex items-center justify-center gap-2 text-sm text-zinc-400"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
                             transition={{ delay: 0.75 }}
-                            whileHover={{ scale: 1.04 }}
-                            whileTap={{ scale: 0.97 }}
                         >
-                            Başlayaq <ArrowRight size={18} />
-                        </motion.button>
+                            <div className="flex gap-1">
+                                <div className="h-2 w-2 animate-bounce rounded-full bg-yellow-400" style={{ animationDelay: "0ms" }} />
+                                <div className="h-2 w-2 animate-bounce rounded-full bg-yellow-400" style={{ animationDelay: "150ms" }} />
+                                <div className="h-2 w-2 animate-bounce rounded-full bg-yellow-400" style={{ animationDelay: "300ms" }} />
+                            </div>
+                            <span>Yüklənir...</span>
+                        </motion.div>
                     </motion.section>
                 </motion.div>
             )}
