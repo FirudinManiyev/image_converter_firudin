@@ -112,7 +112,7 @@ export default function Home() {
 
             <section className="page-enter relative mx-auto max-w-7xl px-6 py-16">
                 <div className="text-center">
-                    <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-yellow-300 uppercase">Sadə, sürətli, keyfiyyətli</p>
+                    <p className="mb-3 text-sm font-semibold tracking-[0.18em] text-yellow-300 uppercase">Sadə, sürətlİ, keyfİyyətlİ</p>
                     <h1 className="text-5xl font-bold tracking-tight sm:text-6xl">
                         Image <span className="text-yellow-400">Converter</span>
                     </h1>
