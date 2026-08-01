@@ -8,7 +8,7 @@ export default function QualitySlider({ value, onChange }: QualitySliderProps) {
     <label className="block">
       <span className="flex items-center justify-between">
         <span className="setting-label">Keyfiyyət</span>
-        <span className="rounded-lg bg-lime-300/[0.09] px-2 py-1 text-xs font-bold text-lime-300">{value}%</span>
+        <span className="accent-soft accent-text rounded-lg px-2 py-1 text-xs font-bold">{value}%</span>
       </span>
       <input
         type="range"
@@ -20,7 +20,7 @@ export default function QualitySlider({ value, onChange }: QualitySliderProps) {
         className="quality-range mt-4 w-full"
         aria-label="Çıxış keyfiyyəti"
       />
-      <span className="mt-2 flex justify-between text-[10px] font-medium uppercase tracking-wider text-slate-600">
+      <span className="mt-2 flex justify-between text-[10px] font-medium uppercase tracking-wider text-subtle">
         <span>Kiçik həcm</span><span>Yüksək keyfiyyət</span>
       </span>
     </label>

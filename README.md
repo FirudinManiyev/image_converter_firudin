@@ -12,6 +12,8 @@ ManiConvert brauzerdə işləyən Vite + React + TypeScript tətbiqidir. Şəkil
 - Çevrilmiş faylın birbaşa endirilməsi
 - 20 MB ölçü limiti və uyğun olmayan fayllar üçün aydın xəta bildirişləri
 - 8192px ölçü və 40 meqapiksel təhlükəsizlik limitləri
+- Yadda saxlanılan dark/light görünüş rejimi
+- Yüngül giriş və interfeys mikro animasiyaları
 
 ## Texnologiyalar
 

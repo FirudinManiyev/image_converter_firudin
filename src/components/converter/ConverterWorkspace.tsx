@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Info, LockKeyhole } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import { toast } from "sonner";
 import { useImageConverter } from "../../hooks/useImageConverter";
 import { downloadImage } from "../../services/image/downloader";
@@ -39,12 +39,11 @@ export default function ConverterWorkspace() {
   return (
     <section id="converter" className="scroll-mt-24 px-5 pb-20 sm:px-8 sm:pb-28">
       <div className="mx-auto max-w-[1200px]">
-        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-7">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-lime-300">Converter</p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.035em] text-white sm:text-3xl">Faylınızı çevirməyə hazırsınız?</h2>
+            <p className="accent-text text-xs font-bold uppercase tracking-[0.2em]">Converter</p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-[-0.035em] text-primary sm:text-3xl">Faylınızı çevirməyə hazırsınız?</h2>
           </div>
-          <span className="inline-flex items-center gap-2 text-xs text-slate-600"><LockKeyhole size={14} className="text-lime-300" /> Lokal emal aktivdir</span>
         </div>
 
         {!converter.image ? (
@@ -65,18 +64,18 @@ export default function ConverterWorkspace() {
               {converter.convertedImage && <ResultPanel result={converter.convertedImage} onDownload={handleDownload} />}
             </div>
 
-            <aside className="rounded-[24px] border border-white/[0.08] bg-[#0a0f18] p-5 xl:sticky xl:top-24">
-              <div className="flex items-center justify-between border-b border-white/[0.07] pb-4">
+            <aside className="surface-card theme-border interactive-card rounded-[24px] border p-5 xl:sticky xl:top-24">
+              <div className="theme-border flex items-center justify-between border-b pb-4">
                 <div>
-                  <p className="text-sm font-semibold text-white">Çevirmə parametrləri</p>
-                  <p className="mt-1 text-xs text-slate-600">Orijinal: {converter.originalFormat}</p>
+                  <p className="text-sm font-semibold text-primary">Çevirmə parametrləri</p>
+                  <p className="mt-1 text-xs text-subtle">Orijinal: {converter.originalFormat}</p>
                 </div>
                 <ArrowRight className="text-lime-300" size={18} />
               </div>
 
               <div className="mt-5 space-y-6">
                 <FormatSelector value={converter.format} onChange={converter.setFormat} />
-                <div className="h-px bg-white/[0.07]" />
+                <div className="h-px bg-[var(--border)]" />
                 <ResizeInputs
                   width={converter.width}
                   height={converter.height}
@@ -89,11 +88,11 @@ export default function ConverterWorkspace() {
                 />
                 {converter.format !== "png" && (
                   <>
-                    <div className="h-px bg-white/[0.07]" />
+                    <div className="h-px bg-[var(--border)]" />
                     <QualitySlider value={converter.quality} onChange={converter.setQuality} />
                   </>
                 )}
-                <div className="rounded-xl border border-cyan-300/10 bg-cyan-300/[0.035] p-3 text-xs leading-5 text-slate-500">
+                <div className="rounded-xl border border-cyan-400/15 bg-cyan-400/[0.05] p-3 text-xs leading-5 text-muted">
                   <Info className="mr-1.5 inline text-cyan-300" size={14} /> Şəkil yalnız bu brauzer pəncərəsində emal ediləcək.
                 </div>
                 <ConvertButton disabled={Boolean(converter.dimensionError)} loading={converter.isConverting} onClick={handleConvert} />

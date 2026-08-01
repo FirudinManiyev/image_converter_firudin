@@ -14,16 +14,16 @@ export default function ResultPanel({ result, onDownload }: ResultPanelProps) {
     : 0;
 
   return (
-    <div className="result-enter mt-5 overflow-hidden rounded-[24px] border border-lime-300/20 bg-lime-300/[0.035]">
+    <div className="result-enter accent-soft mt-5 overflow-hidden rounded-[24px] border border-[var(--accent-border)]">
       <div className="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
         <div className="flex items-start gap-3.5">
           <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-lime-300 text-slate-950"><CheckCircle2 size={21} /></span>
           <div>
-            <h3 className="font-semibold text-white">Şəkliniz hazırdır</h3>
-            <p className="mt-1 max-w-md truncate text-sm text-slate-500">{result.fileName}</p>
+            <h3 className="font-semibold text-primary">Şəkliniz hazırdır</h3>
+            <p className="mt-1 max-w-md truncate text-sm text-muted">{result.fileName}</p>
           </div>
         </div>
-        <button type="button" onClick={onDownload} className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-lime-200">
+        <button type="button" onClick={onDownload} className="download-button inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition hover:-translate-y-1">
           <Download size={17} /> Endir
         </button>
       </div>
@@ -47,9 +47,9 @@ interface ResultStatProps {
 
 function ResultStat({ label, value, icon: Icon, positive }: ResultStatProps) {
   return (
-    <div className="bg-[#0b1315] px-5 py-4">
-      <p className="text-[10px] uppercase tracking-wider text-slate-600">{label}</p>
-      <p className={`mt-1.5 flex items-center gap-1.5 text-sm font-semibold ${positive ? "text-lime-300" : "text-slate-200"}`}>
+    <div className="result-stat px-5 py-4 transition hover:bg-[var(--surface-hover)]">
+      <p className="text-[10px] uppercase tracking-wider text-subtle">{label}</p>
+      <p className={`mt-1.5 flex items-center gap-1.5 text-sm font-semibold ${positive ? "accent-text" : "text-secondary"}`}>
         {Icon && <Icon size={14} />} {value}
       </p>
     </div>
