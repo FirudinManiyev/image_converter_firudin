@@ -1,8 +1,4 @@
-export type ImageFormat =
-    | "png"
-    | "jpg"
-    | "jpeg"
-    | "webp";
+export type ImageFormat = "png" | "jpg" | "webp";
 
 export interface ConvertOptions {
     file: File;

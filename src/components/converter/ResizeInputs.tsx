@@ -1,25 +1,82 @@
-import { Monitor, Smartphone, Tablet } from "lucide-react";
+import { Link2, RotateCcw } from "lucide-react";
 
-interface Props { width: string; height: string; originalWidth?: number; originalHeight?: number; onWidthChange: (value: string) => void; onHeightChange: (value: string) => void; }
-const presetSizes = [{ name: "Orijinal", width: 0, height: 0, icon: Monitor }, { name: "1920×1080", width: 1920, height: 1080, icon: Monitor }, { name: "1280×720", width: 1280, height: 720, icon: Monitor }, { name: "800×600", width: 800, height: 600, icon: Tablet }, { name: "640×480", width: 640, height: 480, icon: Tablet }, { name: "320×240", width: 320, height: 240, icon: Smartphone }];
+interface ResizeInputsProps {
+  width: string;
+  height: string;
+  lockRatio: boolean;
+  error: string | null;
+  onWidthChange: (value: string) => void;
+  onHeightChange: (value: string) => void;
+  onLockRatioChange: (value: boolean) => void;
+  onReset: () => void;
+}
 
-export default function ResizeInputs({ width, height, originalWidth, originalHeight, onWidthChange, onHeightChange }: Props) {
-    const selectPreset = (presetWidth: number, presetHeight: number) => {
-        onWidthChange((presetWidth || originalWidth)?.toString() ?? "");
-        onHeightChange((presetHeight || originalHeight)?.toString() ?? "");
-    };
-    return (
-        <div className="mt-8 rounded-2xl border border-zinc-800 bg-[#151515] p-6 transition-all duration-300 hover:border-zinc-700 hover:shadow-lg hover:shadow-yellow-400/5">
-            <h3 className="mb-5 text-xl font-semibold">Ölçüləri dəyiş</h3>
-            <div className="mb-6"><label className="mb-3 block text-sm text-zinc-400">Hazır ölçü seçimləri</label><div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">{presetSizes.map((preset) => {
-                const Icon = preset.icon;
-                const isSelected = (preset.width === 0 && width === originalWidth?.toString() && height === originalHeight?.toString()) || (preset.width === Number(width) && preset.height === Number(height));
-                return <button key={preset.name} type="button" onClick={() => selectPreset(preset.width, preset.height)} className={`flex flex-col items-center gap-2 rounded-xl border p-3 transition-all duration-300 ${isSelected ? "scale-[1.03] border-yellow-400 bg-yellow-400/10 text-yellow-400 shadow-lg shadow-yellow-400/20" : "border-zinc-700 bg-[#101010] text-zinc-400 hover:-translate-y-0.5 hover:border-yellow-400/50 hover:bg-[#181818] hover:text-zinc-300"}`}><Icon size={20} /><span className="text-xs font-medium">{preset.name}</span></button>;
-            })}</div></div>
-            <div className="grid gap-4 md:grid-cols-2">
-                <label className="block text-sm text-zinc-400">En (px)<input type="number" min="1" value={width} onChange={(event) => onWidthChange(event.target.value)} placeholder="Məs: 1920" className="mt-2 w-full rounded-xl border border-zinc-700 bg-[#101010] px-4 py-3 text-white outline-none transition-all duration-300 focus:border-yellow-400 focus:shadow-lg focus:shadow-yellow-400/10" /></label>
-                <label className="block text-sm text-zinc-400">Hündürlük (px)<input type="number" min="1" value={height} onChange={(event) => onHeightChange(event.target.value)} placeholder="Məs: 1080" className="mt-2 w-full rounded-xl border border-zinc-700 bg-[#101010] px-4 py-3 text-white outline-none transition-all duration-300 focus:border-yellow-400 focus:shadow-lg focus:shadow-yellow-400/10" /></label>
-            </div>
-        </div>
-    );
+export default function ResizeInputs({
+  width,
+  height,
+  lockRatio,
+  error,
+  onWidthChange,
+  onHeightChange,
+  onLockRatioChange,
+  onReset,
+}: ResizeInputsProps) {
+  return (
+    <fieldset>
+      <div className="flex items-center justify-between">
+        <legend className="setting-label">Şəkil ölçüsü</legend>
+        <button type="button" onClick={onReset} className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 transition hover:text-lime-300">
+          <RotateCcw size={13} /> Sıfırla
+        </button>
+      </div>
+
+      <div className="mt-3 grid grid-cols-[1fr_auto_1fr] items-end gap-2">
+        <label className="text-xs text-slate-500">
+          En
+          <span className={`mt-1.5 flex items-center rounded-xl border bg-white/[0.025] transition focus-within:border-lime-300/50 ${error ? "border-rose-400/30" : "border-white/[0.09]"}`}>
+            <input
+              type="number"
+              inputMode="numeric"
+              min="1"
+              max="8192"
+              value={width}
+              onChange={(event) => onWidthChange(event.target.value)}
+              className="min-w-0 flex-1 bg-transparent py-2.5 pl-3 text-sm font-medium text-white outline-none"
+              aria-label="Şəkil eni"
+            />
+            <span className="pr-3 text-xs text-slate-600">px</span>
+          </span>
+        </label>
+
+        <button
+          type="button"
+          onClick={() => onLockRatioChange(!lockRatio)}
+          className={`mb-0.5 grid size-9 place-items-center rounded-xl border transition ${lockRatio ? "border-lime-300/30 bg-lime-300/[0.08] text-lime-300" : "border-white/[0.08] bg-white/[0.025] text-slate-600"}`}
+          aria-label={lockRatio ? "Ölçü nisbətini aç" : "Ölçü nisbətini kilidlə"}
+          aria-pressed={lockRatio}
+          title="Ölçü nisbətini qoru"
+        >
+          <Link2 size={16} />
+        </button>
+
+        <label className="text-xs text-slate-500">
+          Hündürlük
+          <span className={`mt-1.5 flex items-center rounded-xl border bg-white/[0.025] transition focus-within:border-lime-300/50 ${error ? "border-rose-400/30" : "border-white/[0.09]"}`}>
+            <input
+              type="number"
+              inputMode="numeric"
+              min="1"
+              max="8192"
+              value={height}
+              onChange={(event) => onHeightChange(event.target.value)}
+              className="min-w-0 flex-1 bg-transparent py-2.5 pl-3 text-sm font-medium text-white outline-none"
+              aria-label="Şəkil hündürlüyü"
+            />
+            <span className="pr-3 text-xs text-slate-600">px</span>
+          </span>
+        </label>
+      </div>
+      {error && <p className="mt-2 text-xs leading-5 text-rose-300" role="alert">{error}</p>}
+    </fieldset>
+  );
 }
